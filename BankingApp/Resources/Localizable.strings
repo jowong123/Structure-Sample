@@ -1,0 +1,14 @@
+
+"error.not-found" = "404 Not Found.";
+"error.bad-gateway" = "502 Bad Gateway.";
+"error.gateway-timeout" = "504 Gateway Time-out.";
+"error.unknown" = "An unknown error has occured. Please try again.";
+"error.offline" = "You are currently offline.";
+"error.invalid-url" = "Invalid URL.";
+"error.session-expired" = "Your session has expired. Please log in again.";
+"error.unauthorized" = "Unauthorized Access.";
+"error.empty-response" = "Unexpected Empty Response.";
+"error.account-inactive" = "Your account is inactive.";
+"error.account-suspended" = "Your account is suspended.";
+"error.account-inactive" = "Your account is inactive.";
+"error.account-first-time-login" = "Your account is not verified yet. Please procced by clicking 'First Time Login' button.";
