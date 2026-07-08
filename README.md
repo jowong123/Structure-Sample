@@ -40,6 +40,7 @@ Rather than a single app repo, this is a snapshot of the base architecture, navi
 - [SnapKit] for Auto Layout
 - [SPM] for dependency management
 - [R.swift] for type-safe resources
+- [Alamofire] for networking
 
 ## Getting started
 ```
