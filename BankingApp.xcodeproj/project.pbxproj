@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB0D27883014AB7F008A5A57 /* GreetingKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBAD56F93013590C00BB7D91 /* GreetingKit.xcframework */; };
+		CB8E58883014C2900013C567 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = CB8E58873014C2900013C567 /* RswiftLibrary */; };
 		CB966CFD2F9632E80012E53B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CB966CFC2F9632E80012E53B /* Alamofire */; };
 		CB966D002F9633180012E53B /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = CB966CFF2F9633180012E53B /* SwiftyJSON */; };
 		CB966D082F9636E10012E53B /* Valet in Frameworks */ = {isa = PBXBuildFile; productRef = CB966D072F9636E10012E53B /* Valet */; };
-		CB981CA02FFCF0E200DC2E5B /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = CB981C9F2FFCF0E200DC2E5B /* RswiftLibrary */; };
 		CB981D392FFD1E3800DC2E5B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CB981D382FFD1E3800DC2E5B /* SnapKit */; };
 /* End PBXBuildFile section */
 
@@ -32,15 +33,50 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CB7D2793307256BF00256EF7 /* BankingApp.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = BankingApp.xctestplan; sourceTree = "<group>"; };
 		CB965D002F9470180012E53B /* BankingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BankingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB965D192F9470190012E53B /* BankingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BankingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB965D232F9470190012E53B /* BankingAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BankingAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBAD56F93013590C00BB7D91 /* GreetingKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GreetingKit.xcframework; path = ../GreetingKit/build/GreetingKit.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CB64A5D33075211D000C08A6 /* Exceptions for "BankingApp" folder in "BankingAppUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Modules/AccessibilityIdentifier.swift,
+			);
+			target = CB965D222F9470190012E53B /* BankingAppUITests */;
+		};
+		CB7D27723071415400256EF7 /* Exceptions for "BankingAppTests" folder in "BankingApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/JsonTypeEnums.swift,
+				"Resources/PostAuthenticateResponseJson-FirstTime.json",
+				"Resources/PostAuthenticateResponseJson-Normal.json",
+				"Resources/PostAuthenticateResponseJson-Suspended.json",
+			);
+			target = CB965CFF2F9470180012E53B /* BankingApp */;
+		};
+		CB7D27733071415400256EF7 /* Exceptions for "BankingAppTests" folder in "BankingAppTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/JsonTypeEnums.swift,
+			);
+			target = CB965D182F9470190012E53B /* BankingAppTests */;
+		};
+		CB7D279230724D8500256EF7 /* Exceptions for "BankingApp" folder in "BankingAppTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				SharedConstants.swift,
+			);
+			target = CB965D182F9470190012E53B /* BankingAppTests */;
+		};
 		CB965D2B2F9470190012E53B /* Exceptions for "BankingApp" folder in "BankingApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"External/R.swift/rswift-7.8.0/License",
+				"External/R.swift/rswift-7.8.0/rswift",
 				Info.plist,
 			);
 			target = CB965CFF2F9470180012E53B /* BankingApp */;
@@ -52,6 +88,8 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				CB965D2B2F9470190012E53B /* Exceptions for "BankingApp" folder in "BankingApp" target */,
+				CB7D279230724D8500256EF7 /* Exceptions for "BankingApp" folder in "BankingAppTests" target */,
+				CB64A5D33075211D000C08A6 /* Exceptions for "BankingApp" folder in "BankingAppUITests" target */,
 			);
 			explicitFileTypes = {
 				Resources/Localizable.strings = text.plist.strings;
@@ -61,6 +99,10 @@
 		};
 		CB965D1C2F9470190012E53B /* BankingAppTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CB7D27723071415400256EF7 /* Exceptions for "BankingAppTests" folder in "BankingApp" target */,
+				CB7D27733071415400256EF7 /* Exceptions for "BankingAppTests" folder in "BankingAppTests" target */,
+			);
 			path = BankingAppTests;
 			sourceTree = "<group>";
 		};
@@ -77,10 +119,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB966D082F9636E10012E53B /* Valet in Frameworks */,
-				CB981CA02FFCF0E200DC2E5B /* RswiftLibrary in Frameworks */,
+				CB0D27883014AB7F008A5A57 /* GreetingKit.xcframework in Frameworks */,
 				CB966D002F9633180012E53B /* SwiftyJSON in Frameworks */,
 				CB966CFD2F9632E80012E53B /* Alamofire in Frameworks */,
 				CB981D392FFD1E3800DC2E5B /* SnapKit in Frameworks */,
+				CB8E58883014C2900013C567 /* RswiftLibrary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +147,7 @@
 		CB965CF72F9470180012E53B = {
 			isa = PBXGroup;
 			children = (
+				CB7D2793307256BF00256EF7 /* BankingApp.xctestplan */,
 				CB965D022F9470180012E53B /* BankingApp */,
 				CB965D1C2F9470190012E53B /* BankingAppTests */,
 				CB965D262F9470190012E53B /* BankingAppUITests */,
@@ -125,6 +169,7 @@
 		CB966CFB2F9632E80012E53B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CBAD56F93013590C00BB7D91 /* GreetingKit.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -136,6 +181,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CB965D2C2F9470190012E53B /* Build configuration list for PBXNativeTarget "BankingApp" */;
 			buildPhases = (
+				CB8E58793014B1160013C567 /* [R.swift] Generate Resources */,
 				CB965CFC2F9470180012E53B /* Sources */,
 				CB965CFD2F9470180012E53B /* Frameworks */,
 				CB965CFE2F9470180012E53B /* Resources */,
@@ -143,7 +189,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				CB981CA22FFCF0F600DC2E5B /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				CB965D022F9470180012E53B /* BankingApp */,
@@ -153,8 +198,8 @@
 				CB966CFC2F9632E80012E53B /* Alamofire */,
 				CB966CFF2F9633180012E53B /* SwiftyJSON */,
 				CB966D072F9636E10012E53B /* Valet */,
-				CB981C9F2FFCF0E200DC2E5B /* RswiftLibrary */,
 				CB981D382FFD1E3800DC2E5B /* SnapKit */,
+				CB8E58873014C2900013C567 /* RswiftLibrary */,
 			);
 			productName = BankingApp;
 			productReference = CB965D002F9470180012E53B /* BankingApp.app */;
@@ -242,8 +287,9 @@
 				CB966CFA2F9631580012E53B /* XCRemoteSwiftPackageReference "Alamofire" */,
 				CB966CFE2F9633180012E53B /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				CB966D062F9636E10012E53B /* XCRemoteSwiftPackageReference "Valet" */,
-				CB981C9E2FFCF01E00DC2E5B /* XCRemoteSwiftPackageReference "R" */,
 				CB981D342FFD1E1600DC2E5B /* XCRemoteSwiftPackageReference "SnapKit" */,
+				CB0D27873014AB62008A5A57 /* XCRemoteSwiftPackageReference "GreetingKit" */,
+				CB8E58863014C2810013C567 /* XCRemoteSwiftPackageReference "R" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CB965D012F9470180012E53B /* Products */;
@@ -281,6 +327,29 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		CB8E58793014B1160013C567 /* [R.swift] Generate Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[R.swift] Generate Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/BankingApp/Resources/R.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"Running R.swift locally\"\n    \n\"$SRCROOT/BankingApp/External/R.swift/rswift-7.8.0/rswift\" generate \"$SRCROOT/BankingApp/Resources/R.generated.swift\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CB965CFC2F9470180012E53B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -316,10 +385,6 @@
 			target = CB965CFF2F9470180012E53B /* BankingApp */;
 			targetProxy = CB965D242F9470190012E53B /* PBXContainerItemProxy */;
 		};
-		CB981CA22FFCF0F600DC2E5B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = CB981CA12FFCF0F600DC2E5B /* RswiftGenerateInternalResources */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -330,6 +395,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BankingApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -346,7 +412,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
@@ -361,6 +427,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BankingApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -377,7 +444,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
@@ -626,6 +693,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CB0D27873014AB62008A5A57 /* XCRemoteSwiftPackageReference "GreetingKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jowong123/GreetingKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
+		CB8E58863014C2810013C567 /* XCRemoteSwiftPackageReference "R" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mac-cain13/R.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.8.0;
+			};
+		};
 		CB966CFA2F9631580012E53B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -650,14 +733,6 @@
 				minimumVersion = 5.1.0;
 			};
 		};
-		CB981C9E2FFCF01E00DC2E5B /* XCRemoteSwiftPackageReference "R" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mac-cain13/R.swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.8.0;
-			};
-		};
 		CB981D342FFD1E1600DC2E5B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -669,6 +744,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CB8E58873014C2900013C567 /* RswiftLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB8E58863014C2810013C567 /* XCRemoteSwiftPackageReference "R" */;
+			productName = RswiftLibrary;
+		};
 		CB966CFC2F9632E80012E53B /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CB966CFA2F9631580012E53B /* XCRemoteSwiftPackageReference "Alamofire" */;
@@ -683,16 +763,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CB966D062F9636E10012E53B /* XCRemoteSwiftPackageReference "Valet" */;
 			productName = Valet;
-		};
-		CB981C9F2FFCF0E200DC2E5B /* RswiftLibrary */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB981C9E2FFCF01E00DC2E5B /* XCRemoteSwiftPackageReference "R" */;
-			productName = RswiftLibrary;
-		};
-		CB981CA12FFCF0F600DC2E5B /* RswiftGenerateInternalResources */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB981C9E2FFCF01E00DC2E5B /* XCRemoteSwiftPackageReference "R" */;
-			productName = "plugin:RswiftGenerateInternalResources";
 		};
 		CB981D382FFD1E3800DC2E5B /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

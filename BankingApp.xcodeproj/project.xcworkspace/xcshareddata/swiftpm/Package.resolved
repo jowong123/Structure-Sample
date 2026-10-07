@@ -1,5 +1,5 @@
 {
-  "originHash" : "ccb3d1405944b8aecd0082ce564de7bb38e871a5350b3ab0afc870e3ee9e6dd6",
+  "originHash" : "81cc3303d2b4ae21ec2b6009aae8705d7277a9b9df85de08d3d608a19ad1c1ed",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "e938f8c66708e7352fc7e3512647fa54255b267a",
         "version" : "5.11.2"
+      }
+    },
+    {
+      "identity" : "greetingkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jowong123/GreetingKit",
+      "state" : {
+        "revision" : "34a817907682f0eab80d5c5f4f1e9b8407f09b26",
+        "version" : "1.0.1"
       }
     },
     {

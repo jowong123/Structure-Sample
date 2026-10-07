@@ -12,7 +12,7 @@ class WSLoginViewModel {
     
     // MARK: Enum
 
-    enum ValidationError {
+    enum ValidationError: Error {
         case invalidLoginIdLength
         case invalidPasswordLength
     }
@@ -54,6 +54,11 @@ class WSLoginViewModel {
         success: @escaping () -> Void,
         failure: @escaping (_ error: Error) -> Void
     ) {
+        if let firstError = self.validationErrors.first {
+            failure(firstError)
+            return
+        }
+        
         let params = [
             "loginId": loginId.lowercased(),
             "password": self.password,

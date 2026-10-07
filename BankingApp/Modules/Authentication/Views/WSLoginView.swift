@@ -42,6 +42,7 @@ class WSLoginView: WSBaseView {
         let fullString = NSMutableAttributedString(string: "New to Wise? ", attributes: normalAttrs)
         fullString.append(NSAttributedString(string: "Sign up", attributes: boldAttrs))
         button.setAttributedTitle(fullString, for: .normal)
+        button.accessibilityIdentifier = LoginAccessibilityIdentifier.signUpButton.rawValue
         return button
     }()
 
@@ -64,6 +65,7 @@ class WSLoginView: WSBaseView {
         field.layer.borderColor = UIColor.separator.cgColor
         field.setLeftPaddingPoints(14)
         field.setRightPaddingPoints(14)
+        field.accessibilityIdentifier = LoginAccessibilityIdentifier.emailTextField.rawValue
         return field
     }()
 
@@ -85,6 +87,7 @@ class WSLoginView: WSBaseView {
         field.layer.borderWidth = 1
         field.layer.borderColor = UIColor.separator.cgColor
         field.setLeftPaddingPoints(14)
+        field.accessibilityIdentifier = LoginAccessibilityIdentifier.passwordTextField.rawValue
         return field
     }()
 
@@ -92,6 +95,7 @@ class WSLoginView: WSBaseView {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "eye"), for: .normal)
         button.tintColor = .label
+        button.accessibilityIdentifier = LoginAccessibilityIdentifier.togglePasswordButton.rawValue
         return button
     }()
 
@@ -102,6 +106,7 @@ class WSLoginView: WSBaseView {
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
         button.backgroundColor = UIColor(red: 0.68, green: 0.85, blue: 0.55, alpha: 1.0) // Wise-style green
         button.layer.cornerRadius = 27
+        button.accessibilityIdentifier = LoginAccessibilityIdentifier.loginButton.rawValue
         return button
     }()
 
@@ -114,6 +119,7 @@ class WSLoginView: WSBaseView {
         ]
         button.setAttributedTitle(NSAttributedString(string: "Forgot password?", attributes: attrs), for: .normal)
         button.contentHorizontalAlignment = .left
+        button.accessibilityIdentifier = LoginAccessibilityIdentifier.forgotPasswordButton.rawValue
         return button
     }()
 

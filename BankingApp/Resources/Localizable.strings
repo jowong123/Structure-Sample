@@ -8,7 +8,6 @@
 "error.session-expired" = "Your session has expired. Please log in again.";
 "error.unauthorized" = "Unauthorized Access.";
 "error.empty-response" = "Unexpected Empty Response.";
-"error.account-inactive" = "Your account is inactive.";
-"error.account-suspended" = "Your account is suspended.";
-"error.account-inactive" = "Your account is inactive.";
+"error.account-inactive-error" = "Your account is inactive.";
+"error.account-suspended-error" = "Your account is suspended.";
 "error.account-first-time-login" = "Your account is not verified yet. Please procced by clicking 'First Time Login' button.";

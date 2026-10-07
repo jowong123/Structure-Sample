@@ -1,0 +1,8 @@
+{
+    "accessToken": "accessToken123",
+    "firstTimeLogin": false,
+    "inactive": false,
+    "refreshToken": "refreshToken123",
+    "resetToken": null,
+    "suspended": false
+}

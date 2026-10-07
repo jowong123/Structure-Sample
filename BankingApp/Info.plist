@@ -21,5 +21,7 @@
 			</array>
 		</dict>
 	</dict>
+	<key>Localized Apns App Group</key>
+	<string>$(LOCALIZED_APNS_APP_GROUP)</string>
 </dict>
 </plist>

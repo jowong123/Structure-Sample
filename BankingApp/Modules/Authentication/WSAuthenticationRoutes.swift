@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-import RswiftResources
+//import RswiftResources
 
 enum WSAuthenticationRoutes: Route {
     case login

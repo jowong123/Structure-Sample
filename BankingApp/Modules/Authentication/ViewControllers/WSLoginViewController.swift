@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import RswiftResources
+import GreetingKit
 
 class WSLoginViewController: WSBaseViewControllerWithViewModel<WSLoginViewModel> {
     // MARK: - Outlets
@@ -55,6 +55,9 @@ class WSLoginViewController: WSBaseViewControllerWithViewModel<WSLoginViewModel>
 
         view.backgroundColor = .white
         self.containerView.delegate = self
+        
+        let kit = GreetingKit()
+        print(kit.greet(name: "World"))
     }
 
     // MARK: - Private Methods

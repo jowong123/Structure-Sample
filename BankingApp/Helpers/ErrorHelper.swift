@@ -7,7 +7,6 @@
 
 import Foundation
 import Alamofire
-import RswiftResources
 
 enum ErrorHelper {
     // MARK: - Enum
@@ -91,14 +90,14 @@ enum ErrorHelper {
     static var accountInactiveError: NSError {
         return ErrorHelper.error(
             domain: .authentication,
-            localizedDescription: App.localizedString().localizable.errorAccountInactive()
+            localizedDescription: App.localizedString().localizable.errorAccountInactiveError()
         )
     }
     
     static var accountSuspendedError: NSError {
         return ErrorHelper.error(
             domain: .authentication,
-            localizedDescription: App.localizedString().localizable.errorAccountSuspended()
+            localizedDescription: App.localizedString().localizable.errorAccountSuspendedError()
         )
     }
     
