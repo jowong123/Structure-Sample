@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-//import RswiftResources
 
 enum WSLandingRoutes: Route {
     case splash

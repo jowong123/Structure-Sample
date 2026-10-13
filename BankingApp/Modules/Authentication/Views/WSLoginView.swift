@@ -13,6 +13,7 @@ protocol WSLoginViewDelegate: AnyObject {
     var validationErrors: [WSLoginViewModel.ValidationError] { get }
 
     func viewDidSelectLoginButton(_ view: WSLoginView)
+    func viewDidSelectSshButton(_ view: WSLoginView)
 }
 
 class WSLoginView: WSBaseView {
@@ -122,6 +123,20 @@ class WSLoginView: WSBaseView {
         button.accessibilityIdentifier = LoginAccessibilityIdentifier.forgotPasswordButton.rawValue
         return button
     }()
+    
+    let sshButton: UIButton = {
+        let button = UIButton(type: .system)
+        let attrs: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 15, weight: .bold),
+            .foregroundColor: UIColor.label,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+        button.setAttributedTitle(NSAttributedString(string: "SSH Pinning Button?", attributes: attrs), for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.accessibilityIdentifier = LoginAccessibilityIdentifier.forgotPasswordButton.rawValue
+        button.addTarget(self, action: #selector(didTapSshButton), for: .touchUpInside)
+        return button
+    }()
 
     // MARK: Internal
 
@@ -146,7 +161,7 @@ class WSLoginView: WSBaseView {
         togglePasswordVisibilityButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
 
         [titleLabel, signUpButton, emailFieldLabel, emailTextField,
-         passwordFieldLabel, passwordTextField, loginButton, forgotPasswordButton].forEach {
+         passwordFieldLabel, passwordTextField, loginButton, forgotPasswordButton, sshButton].forEach {
             addSubview($0)
         }
 
@@ -209,6 +224,11 @@ class WSLoginView: WSBaseView {
             make.top.equalTo(loginButton.snp.bottom).offset(16)
             make.leading.equalToSuperview().offset(20)
         }
+        
+        sshButton.snp.makeConstraints { make in
+            make.top.equalTo(forgotPasswordButton.snp.bottom).offset(16)
+            make.leading.equalToSuperview().offset(20)
+        }
     }
 
     // MARK: - Actions
@@ -217,6 +237,10 @@ class WSLoginView: WSBaseView {
         passwordTextField.isSecureTextEntry.toggle()
         let imageName = passwordTextField.isSecureTextEntry ? "eye" : "eye.slash"
         togglePasswordVisibilityButton.setImage(UIImage(systemName: imageName), for: .normal)
+    }
+    
+    @objc private func didTapSshButton() {
+        delegate?.viewDidSelectSshButton(self)
     }
 }
 

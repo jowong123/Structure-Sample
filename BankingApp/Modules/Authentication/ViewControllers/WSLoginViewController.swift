@@ -93,11 +93,85 @@ class WSLoginViewController: WSBaseViewControllerWithViewModel<WSLoginViewModel>
             }
         )
     }
+    
+    func testConnection() {
+        let url = URL(string: "https://api.github.com")!
+        URLSession.shared.dataTask(with: url) { _, response, error in
+            if let error = error {
+                print("❌ Blocked:", error.localizedDescription)
+            } else {
+                print("✅ Connected:", (response as? HTTPURLResponse)?.statusCode ?? 0)
+            }
+        }.resume()
+    }
+    
+    func testKeyChain() {
+        let keychain = KeychainHelper.shared
+        do {
+            try keychain.save("my-secret-token-123", for: "accessToken")
+            print("💾 Saved")
+
+            print("📖 Read:", try keychain.read("accessToken") ?? "nil")
+
+            try keychain.save("new-token-456", for: "accessToken")
+            print("🔄 Updated:", try keychain.read("accessToken") ?? "nil")
+
+            try keychain.delete("accessToken")
+            print("🗑️ After delete:", try keychain.read("accessToken") ?? "nil")
+        } catch {
+            print("❌ Keychain error:", error)
+        }
+    }
+    
+    func loginAuth0() {
+        AuthManager.shared.login { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    print("✅ Logged in. Token:", (try? KeychainHelper.shared.read("accessToken")) ?? "nil")
+                    self.printIDToken()
+                case .failure(let error):
+                    print("❌ Login failed:", error)
+                }
+            }
+        }
+    }
+    
+    // Showing the user’s info. You can display “Welcome, you@email.com” or their name right after login, with no extra network request. The info is already in the token.
+    
+    // Knowing which user this is. The sub field is a unique, permanent user ID. Apps use it to keep data separate per user. For example, if two people log in on the same phone, you don’t mix up their saved settings or cached data.
+
+    // Proof that login actually happened. It’s signed by the login server and includes the issuer, audience, and time, so after verifying it, the app knows this user really logged in just now, for this app. Some apps also check the auth_time field for step-up authentication (“did they log in recently enough to allow a transfer?”).
+
+    // Logging out. When logging out of the login server, apps often send the ID token back (as id_token_hint), so the server knows which session to end.
+    func printIDToken() {
+        guard let token = try? KeychainHelper.shared.read("idToken") else {
+            return print("No ID token saved")
+        }
+
+        let parts = token.split(separator: ".")
+        guard parts.count == 3 else { return print("Not a valid JWT") }
+
+        // Turn Base64URL back into normal Base64
+        var payload = String(parts[1])
+            .replacingOccurrences(of: "-", with: "+")
+            .replacingOccurrences(of: "_", with: "/")
+        while payload.count % 4 != 0 { payload += "=" }   // add back the removed padding
+
+        if let data = Data(base64Encoded: payload),
+           let json = String(data: data, encoding: .utf8) {
+            print("🪪 ID token payload:\n", json)
+        }
+    }
 }
 
 // MARK: - MILoginViewDelegate Methods
 
 extension WSLoginViewController: WSLoginViewDelegate {
+    func viewDidSelectSshButton(_ view: WSLoginView) {
+        self.loginAuth0()
+    }
+    
     func viewDidSelectLoginButton(_: WSLoginView) {
         self.postAuthenticate()
     }
