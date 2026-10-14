@@ -11,11 +11,14 @@ Rather than a single app repo, this is a snapshot of the base architecture, navi
 - **Dependency Injection:** Constructor injection at the ViewModel layer — services/protocols are injected into each ViewModel's initializer, keeping Views/ViewControllers decoupled from concrete implementations and easy to unit test with mocks.
 - **Networking layer:** protocol-based service layer, async-await
 - **UI layer:** UIKit programmatic views with SnapKit
+- **Mobile Security: ATS Certificate Pinning, OIDC + PKCE, Biometrics, Keychain management.
 
 ```
 [ProjectName]/
 ├── Extensions/                    # Extensions
 ├── Helpers/                       # Helpers
+    └── Security
+      └── KeychainHelper, AuthManager, PKCEHelper
 │   └── Managers, ErrorHelpers
 ├── Navigation/                    # BaseNavigator, protocols, coordinators
 ├── Modules/                       # Modules
@@ -50,6 +53,3 @@ Resolve Swift Package dependencies (Xcode should do this automatically on first 
 
 This repo is meant to be read more than run — feel free to explore the `Navigation/` and `Modules/Login/` folders as the best examples of the pattern in practice.
 ```
-### Pending Update
-- GDC Example
-- Biometrics implementation
