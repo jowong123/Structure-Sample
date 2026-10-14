@@ -1,0 +1,8 @@
+{
+    "accessToken": null,
+    "firstTimeLogin": false,
+    "inactive": false,
+    "refreshToken": null,
+    "resetToken": null,
+    "suspended": true
+}

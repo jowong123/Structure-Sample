@@ -1,0 +1,47 @@
+{
+  "configurations" : [
+    {
+      "id" : "E5919F07-FED2-4567-BBFD-B7DC18DCD284",
+      "name" : "Test Scheme Action",
+      "options" : {
+        "addressSanitizer" : {
+          "enabled" : false
+        },
+        "uiTestingScreenshotsLifetime" : "keepNever"
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "addressSanitizer" : {
+      "enabled" : true
+    },
+    "mallocStackLoggingOptions" : {
+      "loggingType" : "liveAllocations"
+    },
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:BankingApp.xcodeproj",
+      "identifier" : "CB965CFF2F9470180012E53B",
+      "name" : "BankingApp"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:BankingApp.xcodeproj",
+        "identifier" : "CB965D182F9470190012E53B",
+        "name" : "BankingAppTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:BankingApp.xcodeproj",
+        "identifier" : "CB965D222F9470190012E53B",
+        "name" : "BankingAppUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
