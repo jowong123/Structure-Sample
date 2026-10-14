@@ -7,6 +7,8 @@
 
 import Foundation
 import Security
+import LocalAuthentication
+
 
 enum KeychainError: Error {
     case unexpectedStatus(OSStatus)
@@ -83,6 +85,65 @@ final class KeychainHelper {
         let status = SecItemDelete(baseQuery(account) as CFDictionary)
         guard status == errSecSuccess || status == errSecItemNotFound else {
             throw KeychainError.unexpectedStatus(status)
+        }
+    }
+}
+
+extension KeychainHelper {
+    func saveWithBiometrics(_ value: String, for account: String) throws {
+        // The lock: Face ID / Touch ID required, device must have a passcode
+        guard let access = SecAccessControlCreateWithFlags(
+            nil,
+            kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly,
+            .biometryCurrentSet,
+            nil
+        ) else {
+            throw  KeychainError.invalidData
+        }
+        
+        // remove any old item first
+        try delete(account)
+        
+        var query = baseQuery(account)
+        query[kSecValueData as String] = Data(value.utf8)
+        query[kSecAttrAccessControl as String] = access
+        
+        let status = SecItemAdd(query as CFDictionary, nil)
+        
+        guard status == errSecSuccess else {
+            throw KeychainError.unexpectedStatus(status)
+        }
+    }
+    
+    func readWithBiometrics(
+        _ account: String,
+        reason: String,
+        completion: @escaping (Result<String?, Error>) -> Void
+    ) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let context = LAContext()
+            context.localizedReason = reason
+            
+            var query = self.baseQuery(account)
+            query[kSecReturnData as String] = true
+            query[kSecMatchLimit as String] = kSecMatchLimitOne
+            query[kSecUseAuthenticationContext as String] = context
+            
+            var result: AnyObject?
+            let status = SecItemCopyMatching(query as CFDictionary, &result)
+            
+            switch status {
+            case errSecSuccess:
+                guard let data = result as? Data,
+                      let value = String(data: data, encoding: .utf8) else {
+                    return completion(.failure(KeychainError.invalidData))
+                }
+                completion(.success(value))
+            case errSecItemNotFound:
+                completion(.success(nil))
+            default:
+                completion(.failure(KeychainError.unexpectedStatus(status)))
+            }
         }
     }
 }

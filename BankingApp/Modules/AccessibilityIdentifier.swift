@@ -12,4 +12,7 @@ enum LoginAccessibilityIdentifier: String {
     case loginButton = "login_button"
     case togglePasswordButton = "toggle_password_button"
     case forgotPasswordButton = "forget_password_button"
+    case sshButton = "ssh_button"
+    case saveBioButton = "save_bio_button"
+    case unlockBioButton = "unlock_bio_button"
 }

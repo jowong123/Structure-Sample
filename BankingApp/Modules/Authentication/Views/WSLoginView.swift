@@ -14,12 +14,13 @@ protocol WSLoginViewDelegate: AnyObject {
 
     func viewDidSelectLoginButton(_ view: WSLoginView)
     func viewDidSelectSshButton(_ view: WSLoginView)
+    func viewDidSelectSaveBioButton(_ view: WSLoginView)
+    func viewDidSelectUnlockButton(_ view: WSLoginView)
 }
 
 class WSLoginView: WSBaseView {
-    
-    // MARK: - Public UI elements (exposed so a VC can wire up targets/actions)
-    // The code for UI is AI generated.
+
+    // MARK: - Public UI elements
 
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -29,23 +30,12 @@ class WSLoginView: WSBaseView {
         return label
     }()
 
-    let signUpButton: UIButton = {
-        let button = UIButton(type: .system)
-        let normalAttrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 15, weight: .regular),
-            .foregroundColor: UIColor.secondaryLabel
-        ]
-        let boldAttrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 15, weight: .bold),
-            .foregroundColor: UIColor.label,
-            .underlineStyle: NSUnderlineStyle.single.rawValue
-        ]
-        let fullString = NSMutableAttributedString(string: "New to Wise? ", attributes: normalAttrs)
-        fullString.append(NSAttributedString(string: "Sign up", attributes: boldAttrs))
-        button.setAttributedTitle(fullString, for: .normal)
-        button.accessibilityIdentifier = LoginAccessibilityIdentifier.signUpButton.rawValue
-        return button
-    }()
+    let signUpButton = WSLinkButton(
+        title: "Sign up",
+        prefix: "New to Wise?",
+        alignment: .center,
+        accessibilityIdentifier: LoginAccessibilityIdentifier.signUpButton.rawValue
+    )
 
     let emailFieldLabel: UILabel = {
         let label = UILabel()
@@ -111,43 +101,43 @@ class WSLoginView: WSBaseView {
         return button
     }()
 
-    let forgotPasswordButton: UIButton = {
-        let button = UIButton(type: .system)
-        let attrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 15, weight: .bold),
-            .foregroundColor: UIColor.label,
-            .underlineStyle: NSUnderlineStyle.single.rawValue
-        ]
-        button.setAttributedTitle(NSAttributedString(string: "Forgot password?", attributes: attrs), for: .normal)
-        button.contentHorizontalAlignment = .left
-        button.accessibilityIdentifier = LoginAccessibilityIdentifier.forgotPasswordButton.rawValue
-        return button
-    }()
-    
-    let sshButton: UIButton = {
-        let button = UIButton(type: .system)
-        let attrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 15, weight: .bold),
-            .foregroundColor: UIColor.label,
-            .underlineStyle: NSUnderlineStyle.single.rawValue
-        ]
-        button.setAttributedTitle(NSAttributedString(string: "SSH Pinning Button?", attributes: attrs), for: .normal)
-        button.contentHorizontalAlignment = .left
-        button.accessibilityIdentifier = LoginAccessibilityIdentifier.forgotPasswordButton.rawValue
-        button.addTarget(self, action: #selector(didTapSshButton), for: .touchUpInside)
-        return button
+    let forgotPasswordButton = WSLinkButton(
+        title: "Forgot password?",
+        accessibilityIdentifier: LoginAccessibilityIdentifier.forgotPasswordButton.rawValue
+    )
+
+    let sshButton = WSLinkButton(
+        title: "SSH Pinning Button?",
+        accessibilityIdentifier: LoginAccessibilityIdentifier.sshButton.rawValue
+    )
+
+    let saveBioButton = WSLinkButton(
+        title: "Save Bio Button?",
+        accessibilityIdentifier: LoginAccessibilityIdentifier.saveBioButton.rawValue
+    )
+
+    let unlockBioButton = WSLinkButton(
+        title: "Unlock Bio Button",
+        accessibilityIdentifier: LoginAccessibilityIdentifier.unlockBioButton.rawValue
+    )
+
+    private let linkButtonsStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.alignment = .leading
+        stack.spacing = 16
+        return stack
     }()
 
     // MARK: Internal
 
     weak var delegate: WSLoginViewDelegate?
-    
+
     // MARK: - Initializer
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-
-        self.setupView()
+        setupView()
     }
 
     // MARK: - Setup
@@ -155,79 +145,82 @@ class WSLoginView: WSBaseView {
     private func setupView() {
         backgroundColor = .systemBackground
 
-        // Add password toggle button inside the password field
+        // Password toggle inside the password field
         passwordTextField.rightView = togglePasswordVisibilityButton
         passwordTextField.rightViewMode = .always
         togglePasswordVisibilityButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
 
+        setupActions()
+
+        [forgotPasswordButton, sshButton, saveBioButton, unlockBioButton].forEach {
+            linkButtonsStack.addArrangedSubview($0)
+        }
+
         [titleLabel, signUpButton, emailFieldLabel, emailTextField,
-         passwordFieldLabel, passwordTextField, loginButton, forgotPasswordButton, sshButton].forEach {
+         passwordFieldLabel, passwordTextField, loginButton, linkButtonsStack].forEach {
             addSubview($0)
         }
 
-        // Title
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(24)
             make.centerX.equalToSuperview()
         }
 
-        // Sign up prompt
         signUpButton.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
         }
 
-        // Email label
         emailFieldLabel.snp.makeConstraints { make in
             make.top.equalTo(signUpButton.snp.bottom).offset(32)
             make.leading.equalToSuperview().offset(20)
         }
 
-        // Email field
         emailTextField.snp.makeConstraints { make in
             make.top.equalTo(emailFieldLabel.snp.bottom).offset(8)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
+            make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(54)
         }
 
-        // Password label
         passwordFieldLabel.snp.makeConstraints { make in
             make.top.equalTo(emailTextField.snp.bottom).offset(24)
             make.leading.equalToSuperview().offset(20)
         }
 
-        // Password field
         passwordTextField.snp.makeConstraints { make in
             make.top.equalTo(passwordFieldLabel.snp.bottom).offset(8)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
+            make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(54)
         }
 
-        // Password toggle button size (inside rightView)
         togglePasswordVisibilityButton.snp.makeConstraints { make in
-            make.width.equalTo(40)
-            make.height.equalTo(40)
+            make.size.equalTo(40)
         }
 
-        // Login button
         loginButton.snp.makeConstraints { make in
             make.top.equalTo(passwordTextField.snp.bottom).offset(32)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
+            make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(54)
         }
 
-        // Forgot password
-        forgotPasswordButton.snp.makeConstraints { make in
+        linkButtonsStack.snp.makeConstraints { make in
             make.top.equalTo(loginButton.snp.bottom).offset(16)
-            make.leading.equalToSuperview().offset(20)
+            make.leading.trailing.equalToSuperview().inset(20)
         }
-        
-        sshButton.snp.makeConstraints { make in
-            make.top.equalTo(forgotPasswordButton.snp.bottom).offset(16)
-            make.leading.equalToSuperview().offset(20)
+    }
+
+    private func setupActions() {
+        sshButton.onTap = { [weak self] in
+            guard let self else { return }
+            self.delegate?.viewDidSelectSshButton(self)
+        }
+        saveBioButton.onTap = { [weak self] in
+            guard let self else { return }
+            self.delegate?.viewDidSelectSaveBioButton(self)
+        }
+        unlockBioButton.onTap = { [weak self] in
+            guard let self else { return }
+            self.delegate?.viewDidSelectUnlockButton(self)
         }
     }
 
@@ -237,10 +230,6 @@ class WSLoginView: WSBaseView {
         passwordTextField.isSecureTextEntry.toggle()
         let imageName = passwordTextField.isSecureTextEntry ? "eye" : "eye.slash"
         togglePasswordVisibilityButton.setImage(UIImage(systemName: imageName), for: .normal)
-    }
-    
-    @objc private func didTapSshButton() {
-        delegate?.viewDidSelectSshButton(self)
     }
 }
 

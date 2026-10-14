@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import GreetingKit
+import LocalAuthentication
 
 class WSLoginViewController: WSBaseViewControllerWithViewModel<WSLoginViewModel> {
     // MARK: - Outlets
@@ -163,6 +164,51 @@ class WSLoginViewController: WSBaseViewControllerWithViewModel<WSLoginViewModel>
             print("🪪 ID token payload:\n", json)
         }
     }
+    
+    func saveBiometrics() {
+        do {
+            try KeychainHelper.shared.saveWithBiometrics("my-refresh-token-789", for: "bioToken")
+            print("🔒 Saved with Face ID protection")
+        } catch {
+            print("❌ Save failed:", error)
+        }
+    }
+    
+    func readBiometrics() {
+        KeychainHelper.shared.readWithBiometrics("bioToken", reason: "Unlock your account") { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let token): print("✅ Unlocked:", token ?? "nil (nothing saved)")
+                case .failure(let error): print("❌ Failed:", error)
+                }
+            }
+        }
+    }
+    
+    // -25308 = iOS refused to give the token without Face ID → the lock is working
+    // 0 = iOS gave the token without Face ID → the lock is missing or not enforced (your case: the         simulator ignores it)
+    // -25300 = No token found with that name
+    func checkProtection() {
+        let context = LAContext()
+        context.interactionNotAllowed = true
+
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: Bundle.main.bundleIdentifier ?? "com.example.app",
+            kSecAttrAccount as String: "bioToken",
+            kSecReturnData as String: true,
+            kSecUseAuthenticationContext as String: context
+        ]
+        var result: AnyObject?
+        print("Protection check status:", SecItemCopyMatching(query as CFDictionary, &result))
+    }
+    
+    func checkIsFaceIDAvailable() {
+        let ctx = LAContext()
+        var error: NSError?
+        let ok = ctx.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)
+        print("Biometrics available:", ok, "type:", ctx.biometryType.rawValue, "error:", error ?? "none")
+    }
 }
 
 // MARK: - MILoginViewDelegate Methods
@@ -174,5 +220,13 @@ extension WSLoginViewController: WSLoginViewDelegate {
     
     func viewDidSelectLoginButton(_: WSLoginView) {
         self.postAuthenticate()
+    }
+    
+    func viewDidSelectSaveBioButton(_ view: WSLoginView) {
+        saveBiometrics()
+    }
+    
+    func viewDidSelectUnlockButton(_ view: WSLoginView) {
+        readBiometrics()
     }
 }

@@ -41,5 +41,7 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Use Face ID To Unlock your account securely</string>
 </dict>
 </plist>
