@@ -11,7 +11,7 @@ Rather than a single app repo, this is a snapshot of the base architecture, navi
 - **Dependency Injection:** Constructor injection at the ViewModel layer — services/protocols are injected into each ViewModel's initializer, keeping Views/ViewControllers decoupled from concrete implementations and easy to unit test with mocks.
 - **Networking layer:** protocol-based service layer, async-await
 - **UI layer:** UIKit programmatic views with SnapKit
-- **Mobile Security: ATS Certificate Pinning, OIDC + PKCE, Biometrics, Keychain management.
+- **Mobile Security:** ATS Certificate Pinning, OIDC + PKCE, Biometrics, Keychain management.
 
 ```
 [ProjectName]/
